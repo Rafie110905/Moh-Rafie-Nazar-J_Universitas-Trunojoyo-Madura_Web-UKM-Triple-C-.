@@ -1,0 +1,5 @@
+# Blokir akses langsung ke folder ini dari browser.
+# Semua file di sini hanya boleh dibaca lewat PHP (admin.php / pesan-store.php).
+Require all denied
+Order deny,allow
+Deny from all
