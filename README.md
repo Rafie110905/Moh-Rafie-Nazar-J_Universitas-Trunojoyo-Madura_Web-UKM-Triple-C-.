@@ -1,6 +1,6 @@
 <div align="center">
 
-# 🖥️ UKM Triple-C — Website Resmi
+# 🖥️ UKM Triple-C — Website Remake
 
 ### *Creative Computer Club · Universitas Trunojoyo Madura*
 
