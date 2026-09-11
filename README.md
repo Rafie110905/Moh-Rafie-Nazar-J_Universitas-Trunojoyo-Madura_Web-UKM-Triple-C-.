@@ -1,1 +1,5 @@
-# Web-UKM-Triple-C-remake-
+# Website UKM Creative Computer Club (Triple-C) Universitas Trunojoyo Madura ini dibangun dengan konsep desain retro "sistem operasi jadul" bergaya Windows 95/98 — lengkap dengan animasi boot, jendela ala aplikasi (exe-card berwarna-warni), dan efek scanline CRT yang khas. Situs menyajikan profil organisasi, struktur kepengurusan, program kerja, galeri kegiatan, hingga halaman khusus event tahunan Trunojoyo Creative Competition (TCC) dengan tiga cabang lomba: Esai, Vibe Code, dan Poster.
+
+Fitur unggulannya meliputi TCC Assistant, chatbot AI berbasis Google Gemini yang menjawab pertanyaan calon peserta lomba secara real-time; panel admin untuk mengelola pesan masuk dari pengunjung; guidebook PDF otomatis untuk tiap lomba; logo animasi custom per kategori kompetisi; serta video profil UKM yang diputar berulang otomatis di beranda.
+
+Dibangun murni dengan PHP native tanpa framework, situs ini mengutamakan performa ringan, kemudahan pengelolaan konten oleh pengurus non-programmer, dan konsistensi visual yang kental nuansa nostalgia komputer lama — menjadikannya representasi digital yang unik bagi komunitas kreatif-teknologi kampus.
