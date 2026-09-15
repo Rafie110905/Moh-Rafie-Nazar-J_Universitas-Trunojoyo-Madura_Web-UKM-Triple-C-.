@@ -1,7 +1,7 @@
 <?php
 $page_title = 'Beranda';
 $active = 'beranda';
-include __DIR__ . '/includes/header.php';
+include __DIR__ . '../includes/header.php';
 ?>
 
 <!-- ============ HERO ============ -->
@@ -237,4 +237,4 @@ include __DIR__ . '/includes/header.php';
   </div>
 </section>
 
-<?php include __DIR__ . '/includes/footer.php'; ?>
+<?php include __DIR__ . '../includes/footer.php'; ?>
