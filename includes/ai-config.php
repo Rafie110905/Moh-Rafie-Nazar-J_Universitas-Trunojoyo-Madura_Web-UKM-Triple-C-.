@@ -21,7 +21,8 @@
  * ============================================================
  */
 
-define('GEMINI_API_KEY', 'https://tcc-chatbot-api.onrender.com'); // <-- tempel API key di sini (contoh: "AIza...")
-
-
-define('GEMINI_MODEL', 'gemini-3.6-flash');
+$envKey = getenv('GEMINI_API_KEY');
+define('GEMINI_API_KEY', $envKey !== false ? $envKey : '');
+ 
+$envModel = getenv('GEMINI_MODEL');
+define('GEMINI_MODEL', $envModel !== false && $envModel !== '' ? $envModel : 'gemini-3.6-flash');
