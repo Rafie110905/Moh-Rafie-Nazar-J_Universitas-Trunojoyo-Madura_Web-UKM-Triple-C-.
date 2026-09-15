@@ -21,7 +21,7 @@
  * ============================================================
  */
 
-define('GEMINI_API_KEY', ''); // <-- tempel API key di sini (contoh: "AIza...")
+define('GEMINI_API_KEY', 'https://tcc-chatbot-api.onrender.com'); // <-- tempel API key di sini (contoh: "AIza...")
 
 
 define('GEMINI_MODEL', 'gemini-3.6-flash');
