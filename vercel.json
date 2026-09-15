@@ -6,9 +6,9 @@
     }
   },
   "rewrites": [
-    { "source": "/", "destination": "/api/index.php" },
-    { "source": "/tentang", "destination": "/api/tentang.php" },
-    { "source": "/kontak", "destination": "/api/kontak.php" },
+    { "source": "/", "destination": "index.php" },
+    { "source": "/tentang", "destination": "tentang.php" },
+    { "source": "/kontak", "destination": "kontak.php" },
     { "source": "/api/tcc-chat.php", "destination": "/api/tcc-chat.php" }
   ]
 }
