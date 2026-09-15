@@ -1,15 +1,30 @@
 <?php
 /**
  * ============================================================
- * ENDPOINT CHAT — AI ASSISTANT TCC
+ * ENDPOINT CHAT — AI ASSISTANT TCC (versi Render, dengan CORS)
  * ============================================================
- * Menerima POST {message, history[]} dari widget chat, membangun
- * system prompt dari data lomba (lomba-data.php) supaya jawaban
- * chatbot selalu sinkron dengan info terbaru di situs, lalu
- * meneruskan ke Google Gemini API (gratis) dan mengembalikan
- * balasannya.
+ * Sama seperti versi InfinityFree, tapi:
+ * - Ditambah header CORS supaya bisa dipanggil dari domain lain
+ *   (situs utama di InfinityFree).
+ * - Origin yang diizinkan diambil dari env var ALLOWED_ORIGIN
+ *   (isi di dashboard Render). Default "*" untuk testing awal.
  * ============================================================
  */
+
+// ---------- CORS ----------
+$allowedOrigin = getenv('ALLOWED_ORIGIN');
+if ($allowedOrigin === false || $allowedOrigin === '') {
+  $allowedOrigin = '*'; // ganti ke domain situsmu di env var setelah testing berhasil
+}
+header('Access-Control-Allow-Origin: ' . $allowedOrigin);
+header('Access-Control-Allow-Methods: POST, OPTIONS');
+header('Access-Control-Allow-Headers: Content-Type');
+
+// Browser mengirim preflight OPTIONS dulu sebelum POST lintas-domain
+if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
+  http_response_code(204);
+  exit;
+}
 
 header('Content-Type: application/json; charset=utf-8');
 
@@ -27,7 +42,7 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
 }
 
 if (!defined('GEMINI_API_KEY') || GEMINI_API_KEY === '' || GEMINI_API_KEY === 'GANTI_DENGAN_API_KEY_ANDA') {
-  jsonError('Chatbot belum dikonfigurasi. Admin situs perlu mengisi API key di includes/ai-config.php.', 503);
+  jsonError('Chatbot belum dikonfigurasi. Admin perlu isi env var GEMINI_API_KEY di dashboard Render.', 503);
 }
 
 $input = json_decode(file_get_contents('php://input'), true);
