@@ -1,0 +1,14 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "functions": {
+    "api/**/*.php": {
+      "runtime": "vercel-php@0.7.4"
+    }
+  },
+  "rewrites": [
+    { "source": "/", "destination": "/api/index.php" },
+    { "source": "/tentang", "destination": "/api/tentang.php" },
+    { "source": "/kontak", "destination": "/api/kontak.php" },
+    { "source": "/api/tcc-chat.php", "destination": "/api/tcc-chat.php" }
+  ]
+}
