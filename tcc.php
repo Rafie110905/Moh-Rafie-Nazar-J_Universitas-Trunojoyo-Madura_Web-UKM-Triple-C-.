@@ -107,6 +107,55 @@ include __DIR__ . '/includes/announcement-modal.php';
   </div>
 </section>
 
+<!-- ============ TWIBBON GENERATOR ============ -->
+<section class="bg-black section">
+  <div class="container">
+    <p class="pixel-heading"><span class="chrome">TWIBBON</span> <span class="glow">TCC 2026</span></p>
+    <p class="center-block" style="color: var(--gray-text); max-width: 560px; margin: 10px auto 40px;">
+      Upload foto kamu, atur posisi &amp; ukurannya, lalu download — pasang di media sosial
+      biar makin siap ikutan TCC 2026!
+    </p>
+
+    <div class="exe-card" style="max-width: 780px; margin: 0 auto;">
+      <div class="exe-titlebar c-pink">
+        <span>TWIBBON.EXE</span>
+        <span class="exe-controls"><span>_</span><span>□</span><span>×</span></span>
+      </div>
+      <div class="exe-body">
+        <div class="twibbon-layout">
+
+          <div class="twibbon-canvas-wrap">
+            <canvas id="twibbon-canvas" width="1080" height="1080"></canvas>
+            <div id="twibbon-empty-hint">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" width="40" height="40"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-5-5L5 21"/></svg>
+              <p>Upload foto dulu ya</p>
+            </div>
+          </div>
+
+          <div class="twibbon-controls">
+            <label for="twibbon-upload" class="btn btn-solid twibbon-upload-btn">
+              📷 PILIH FOTO
+            </label>
+            <input type="file" id="twibbon-upload" accept="image/*" hidden>
+
+            <div class="twibbon-control-row">
+              <label for="twibbon-zoom">Zoom</label>
+              <input type="range" id="twibbon-zoom" min="30" max="300" value="100" disabled>
+            </div>
+
+            <p class="twibbon-hint">💡 Geser fotonya langsung di kotak preview buat atur posisi.</p>
+
+            <button type="button" id="twibbon-download" class="btn btn-outline" disabled>
+              ⬇ DOWNLOAD HASIL
+            </button>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- ============ EVENTS ============ -->
 <section class="bg-purple scanline-bg section">
   <div class="container">
