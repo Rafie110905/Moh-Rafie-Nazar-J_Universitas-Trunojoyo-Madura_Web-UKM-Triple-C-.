@@ -163,6 +163,105 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   }
 
+  // ============ TWIBBON GENERATOR ============
+  var twibbonCanvas = document.getElementById('twibbon-canvas');
+  if (twibbonCanvas) {
+    var tCtx = twibbonCanvas.getContext('2d');
+    var tSize = twibbonCanvas.width; // 1080
+    var tUpload = document.getElementById('twibbon-upload');
+    var tZoom = document.getElementById('twibbon-zoom');
+    var tDownload = document.getElementById('twibbon-download');
+    var tEmptyHint = document.getElementById('twibbon-empty-hint');
+    var tWrap = document.querySelector('.twibbon-canvas-wrap');
+
+    var frameImg = new Image();
+    var userImg = null;
+    var baseScale = 1;
+    var offsetX = 0, offsetY = 0;
+    var dragging = false;
+    var lastX = 0, lastY = 0;
+    var frameReady = false;
+
+    frameImg.onload = function () {
+      frameReady = true;
+      drawTwibbon();
+    };
+    frameImg.src = 'assets/img/twibbon-frame.png';
+
+    function drawTwibbon() {
+      tCtx.clearRect(0, 0, tSize, tSize);
+      if (userImg) {
+        var sliderScale = (parseInt(tZoom.value, 10) || 100) / 100;
+        var totalScale = baseScale * sliderScale;
+        var drawW = userImg.width * totalScale;
+        var drawH = userImg.height * totalScale;
+        var cx = tSize / 2 + offsetX;
+        var cy = tSize / 2 + offsetY;
+        tCtx.drawImage(userImg, cx - drawW / 2, cy - drawH / 2, drawW, drawH);
+      }
+      if (frameReady) {
+        tCtx.drawImage(frameImg, 0, 0, tSize, tSize);
+      }
+    }
+
+    tUpload.addEventListener('change', function (e) {
+      var file = e.target.files && e.target.files[0];
+      if (!file) return;
+      var reader = new FileReader();
+      reader.onload = function (ev) {
+        var img = new Image();
+        img.onload = function () {
+          userImg = img;
+          baseScale = Math.max(tSize / img.width, tSize / img.height);
+          offsetX = 0;
+          offsetY = 0;
+          tZoom.value = 100;
+          tZoom.disabled = false;
+          tDownload.disabled = false;
+          if (tEmptyHint) tEmptyHint.style.display = 'none';
+          twibbonCanvas.classList.remove('is-empty');
+          drawTwibbon();
+        };
+        img.src = ev.target.result;
+      };
+      reader.readAsDataURL(file);
+    });
+
+    tZoom.addEventListener('input', drawTwibbon);
+
+    // drag to reposition (mouse + touch via pointer events)
+    var scaleFactor = function () { return tSize / tWrap.clientWidth; };
+
+    tWrap.addEventListener('pointerdown', function (e) {
+      if (!userImg) return;
+      dragging = true;
+      lastX = e.clientX;
+      lastY = e.clientY;
+      tWrap.setPointerCapture(e.pointerId);
+    });
+    tWrap.addEventListener('pointermove', function (e) {
+      if (!dragging || !userImg) return;
+      var sf = scaleFactor();
+      offsetX += (e.clientX - lastX) * sf;
+      offsetY += (e.clientY - lastY) * sf;
+      lastX = e.clientX;
+      lastY = e.clientY;
+      drawTwibbon();
+    });
+    var stopDrag = function () { dragging = false; };
+    tWrap.addEventListener('pointerup', stopDrag);
+    tWrap.addEventListener('pointercancel', stopDrag);
+    tWrap.addEventListener('pointerleave', stopDrag);
+
+    tDownload.addEventListener('click', function () {
+      if (!userImg) return;
+      var link = document.createElement('a');
+      link.download = 'twibbon-tcc-2026.png';
+      link.href = twibbonCanvas.toDataURL('image/png');
+      link.click();
+    });
+  }
+
   // ============ TCC AI ASSISTANT (CHAT WIDGET) ============
   var chatToggle = document.getElementById('tcc-chat-toggle');
   var chatWindow = document.getElementById('tcc-chat-window');
