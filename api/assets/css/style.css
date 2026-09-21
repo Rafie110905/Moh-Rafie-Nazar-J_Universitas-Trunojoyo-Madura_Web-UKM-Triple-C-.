@@ -1346,6 +1346,57 @@ footer {
   .twibbon-canvas-wrap { width: 100%; max-width: 340px; margin: 0 auto; }
 }
 
+.twibbon-caption-box {
+  width: 100%;
+  padding: 14px;
+  border: 2px solid var(--black);
+  font-family: 'Courier New', monospace;
+  font-size: 0.82rem;
+  line-height: 1.6;
+  color: #222;
+  background: #F9F9F9;
+  resize: vertical;
+}
+.twibbon-copy-feedback {
+  margin-left: 12px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--green-dim);
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+.twibbon-copy-feedback.show { opacity: 1; }
+
+.twibbon-control-label-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.75rem;
+  font-weight: 700;
+  margin-bottom: 6px;
+  gap: 6px;
+}
+.twibbon-control-value {
+  font-family: 'Courier New', monospace;
+  color: var(--green-dim);
+  font-size: 0.8rem;
+  white-space: nowrap;
+}
+.twibbon-btn-row {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+.twibbon-btn-row .btn { flex: 1; min-width: 130px; }
+.twibbon-tag-box {
+  border: 2px solid var(--black);
+  background: #F1FBEA;
+  padding: 12px 14px;
+  font-family: 'Courier New', monospace;
+  font-size: 0.85rem;
+  font-weight: 700;
+}
+
 /* ============================================
    LOGO ANIMASI PER LOMBA (Esai / Vibe Code / Poster)
    ============================================ */
