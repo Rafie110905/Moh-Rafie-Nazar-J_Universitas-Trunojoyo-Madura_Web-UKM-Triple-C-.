@@ -170,6 +170,10 @@ document.addEventListener('DOMContentLoaded', function () {
     var tSize = twibbonCanvas.width; // 1080
     var tUpload = document.getElementById('twibbon-upload');
     var tZoom = document.getElementById('twibbon-zoom');
+    var tRotate = document.getElementById('twibbon-rotate');
+    var tZoomValue = document.getElementById('twibbon-zoom-value');
+    var tRotateValue = document.getElementById('twibbon-rotate-value');
+    var tChangePhoto = document.getElementById('twibbon-change-photo');
     var tDownload = document.getElementById('twibbon-download');
     var tEmptyHint = document.getElementById('twibbon-empty-hint');
     var tWrap = document.querySelector('.twibbon-canvas-wrap');
@@ -181,6 +185,13 @@ document.addEventListener('DOMContentLoaded', function () {
     var dragging = false;
     var lastX = 0, lastY = 0;
     var frameReady = false;
+
+    // Posisi & diameter lingkaran transparan di dalam frame (hasil ukur manual
+    // dari assets/img/twibbon-frame.png, skala 1080x1080). Ganti angka ini kalau
+    // frame twibbon-nya diganti dengan desain baru yang beda ukuran/posisi.
+    var CIRCLE_CX = 532;
+    var CIRCLE_CY = 557;
+    var CIRCLE_D = 478;
 
     frameImg.onload = function () {
       frameReady = true;
@@ -195,28 +206,38 @@ document.addEventListener('DOMContentLoaded', function () {
         var totalScale = baseScale * sliderScale;
         var drawW = userImg.width * totalScale;
         var drawH = userImg.height * totalScale;
-        var cx = tSize / 2 + offsetX;
-        var cy = tSize / 2 + offsetY;
-        tCtx.drawImage(userImg, cx - drawW / 2, cy - drawH / 2, drawW, drawH);
+        var cx = CIRCLE_CX + offsetX;
+        var cy = CIRCLE_CY + offsetY;
+        var rotateDeg = parseInt(tRotate.value, 10) || 0;
+
+        tCtx.save();
+        tCtx.translate(cx, cy);
+        tCtx.rotate(rotateDeg * Math.PI / 180);
+        tCtx.drawImage(userImg, -drawW / 2, -drawH / 2, drawW, drawH);
+        tCtx.restore();
       }
       if (frameReady) {
         tCtx.drawImage(frameImg, 0, 0, tSize, tSize);
       }
     }
 
-    tUpload.addEventListener('change', function (e) {
-      var file = e.target.files && e.target.files[0];
+    function loadPhotoFile(file) {
       if (!file) return;
       var reader = new FileReader();
       reader.onload = function (ev) {
         var img = new Image();
         img.onload = function () {
           userImg = img;
-          baseScale = Math.max(tSize / img.width, tSize / img.height);
+          baseScale = Math.max(CIRCLE_D / img.width, CIRCLE_D / img.height);
           offsetX = 0;
           offsetY = 0;
           tZoom.value = 100;
+          tRotate.value = 0;
+          tZoomValue.textContent = '1.0x';
+          tRotateValue.textContent = '0°';
           tZoom.disabled = false;
+          tRotate.disabled = false;
+          tChangePhoto.disabled = false;
           tDownload.disabled = false;
           if (tEmptyHint) tEmptyHint.style.display = 'none';
           twibbonCanvas.classList.remove('is-empty');
@@ -225,9 +246,26 @@ document.addEventListener('DOMContentLoaded', function () {
         img.src = ev.target.result;
       };
       reader.readAsDataURL(file);
+    }
+
+    tUpload.addEventListener('change', function (e) {
+      var file = e.target.files && e.target.files[0];
+      loadPhotoFile(file);
     });
 
-    tZoom.addEventListener('input', drawTwibbon);
+    tChangePhoto.addEventListener('click', function () {
+      tUpload.click();
+    });
+
+    tZoom.addEventListener('input', function () {
+      tZoomValue.textContent = (parseInt(tZoom.value, 10) / 100).toFixed(1) + 'x';
+      drawTwibbon();
+    });
+
+    tRotate.addEventListener('input', function () {
+      tRotateValue.textContent = tRotate.value + '°';
+      drawTwibbon();
+    });
 
     // drag to reposition (mouse + touch via pointer events)
     var scaleFactor = function () { return tSize / tWrap.clientWidth; };
@@ -260,6 +298,34 @@ document.addEventListener('DOMContentLoaded', function () {
       link.href = twibbonCanvas.toDataURL('image/png');
       link.click();
     });
+
+    // ---- Copy caption ----
+    var copyBtn = document.getElementById('twibbon-copy-caption');
+    var captionBox = document.getElementById('twibbon-caption');
+    var copyFeedback = document.getElementById('twibbon-copy-feedback');
+    if (copyBtn && captionBox) {
+      copyBtn.addEventListener('click', function () {
+        var text = captionBox.value;
+        var showFeedback = function (msg) {
+          copyFeedback.textContent = msg;
+          copyFeedback.classList.add('show');
+          setTimeout(function () { copyFeedback.classList.remove('show'); }, 2000);
+        };
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(text)
+            .then(function () { showFeedback('✓ Tersalin!'); })
+            .catch(function () {
+              captionBox.select();
+              document.execCommand('copy');
+              showFeedback('✓ Tersalin!');
+            });
+        } else {
+          captionBox.select();
+          document.execCommand('copy');
+          showFeedback('✓ Tersalin!');
+        }
+      });
+    }
   }
 
   // ============ TCC AI ASSISTANT (CHAT WIDGET) ============
