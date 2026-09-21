@@ -139,20 +139,98 @@ include __DIR__ . '/includes/announcement-modal.php';
             <input type="file" id="twibbon-upload" accept="image/*" hidden>
 
             <div class="twibbon-control-row">
-              <label for="twibbon-zoom">Zoom</label>
+              <div class="twibbon-control-label-row">
+                <span>🔍 Zoom Out</span>
+                <span id="twibbon-zoom-value" class="twibbon-control-value">1.0x</span>
+                <span>Zoom In 🔍</span>
+              </div>
               <input type="range" id="twibbon-zoom" min="30" max="300" value="100" disabled>
             </div>
 
-            <p class="twibbon-hint">💡 Geser fotonya langsung di kotak preview buat atur posisi.</p>
+            <div class="twibbon-control-row">
+              <div class="twibbon-control-label-row">
+                <span>↺ Putar Kiri</span>
+                <span id="twibbon-rotate-value" class="twibbon-control-value">0°</span>
+                <span>Putar Kanan ↻</span>
+              </div>
+              <input type="range" id="twibbon-rotate" min="-180" max="180" value="0" disabled>
+            </div>
 
-            <button type="button" id="twibbon-download" class="btn btn-outline" disabled>
-              ⬇ DOWNLOAD HASIL
-            </button>
+            <p class="twibbon-hint">💡 Geser fotonya langsung di kotak preview buat atur posisi, gunakan slider buat zoom &amp; rotasi.</p>
+
+            <div class="twibbon-btn-row">
+              <button type="button" id="twibbon-change-photo" class="btn btn-outline" disabled>
+                🔄 GANTI FOTO
+              </button>
+              <button type="button" id="twibbon-download" class="btn btn-solid" disabled>
+                ⬇ DOWNLOAD
+              </button>
+            </div>
           </div>
 
         </div>
       </div>
     </div>
+
+    <!-- Caption & Tag IG -->
+    <div class="exe-card" style="max-width: 100%; margin: 24px auto 0;">
+      <div class="exe-titlebar c-cyan">
+        <span>CAPTION.TXT</span>
+        <span class="exe-controls"><span>_</span><span>□</span><span>×</span></span>
+      </div>
+      <div class="exe-body">
+        <p style="font-size:0.85rem; font-weight:700; margin-bottom:10px;">📋 Caption siap pakai buat post twibbon-mu:</p>
+        <textarea id="twibbon-caption" readonly rows="30" class="twibbon-caption-box">I'M READY FOR TCC 2026! ARE YOU?
+
+TRUNOJOYO CREATIVE COMPETITION (TCC) 2026
+
+Saatnya menjadi bagian dari generasi yang siap menciptakan masa depan melalui inovasi, kreativitas, dan teknologi!
+
+Trunojoyo Creative Competition (TCC) 2026 hadir dengan mengusung tema:
+"Shaping Tomorrow: Digital Innovation, Artificial Intelligence, and Sustainable Communities."
+
+TCC 2026 merupakan wadah bagi pelajar dan mahasiswa untuk menuangkan ide, mengembangkan kreativitas, serta menghadirkan solusi inovatif yang berdampak bagi masyarakat melalui berbagai cabang perlombaan.
+
+Cabang Perlombaan
+Esai (Mahasiswa)
+Vibe Code (Mahasiswa)
+Desain Poster (SMA/Sederajat)
+
+Pendaftaran
+Gelombang 1 : 31 Juli – 9 Agustus 2026
+Gelombang 2 : 10 Agustus – 24 Agustus 2026
+Gelombang 3 : 25 Agustus – 20 September 2026
+
+Biaya Pendaftaran
+Gelombang 1 : Rp35.000
+Gelombang 2 : Rp45.000
+Gelombang 3 : Rp50.000
+
+Tunjukkan semangatmu dengan menggunakan Twibbon TCC 2026, kemudian unggah di media sosial dan ajak teman-temanmu untuk ikut berpartisipasi dalam kompetisi ini.
+
+Mari bersama menjadi generasi yang tidak hanya mengikuti perkembangan teknologi, tetapi juga menciptakan inovasi yang membawa perubahan bagi masa depan.
+
+Informasi lebih lanjut dapat diakses melalui QR Code pada pamflet atau menghubungi narahubung.
+
+Narahubung
+Ibad : +62 859-0134-1809
+Hadi : +62 895-8053-7320
+
+@ukmtriplec @tcc.triplec
+
+#Salam Creative!
+#Semangat Creative!
+#UKMTripleC
+#TCC2026
+#Creative2026</textarea>
+        <button type="button" id="twibbon-copy-caption" class="btn btn-outline" style="margin-top:14px;">📋 COPY CAPTION</button>
+        <span id="twibbon-copy-feedback" class="twibbon-copy-feedback"></span>
+
+        <p style="font-size:0.85rem; font-weight:700; margin:20px 0 8px;">🏷️ Tag akun Instagram di bawah ini:</p>
+        <div class="twibbon-tag-box">Instagram: @ukmtriplec dan @tcc.triplec</div>
+      </div>
+    </div>
+
   </div>
 </section>
 
@@ -238,7 +316,9 @@ include __DIR__ . '/includes/announcement-modal.php';
         <div class="partner-grid">
           <?php
           $sponsors = [
+            ['assets/img/partner/haifa-chicken.png', 'Haifa Chicken'],
             ['assets/img/partner/digital-printing.png', 'Digital Printing'],
+            ['assets/img/partner/im3-indosat.png', 'Im3 Indosat Ooredoo'],
           ];
           foreach ($sponsors as $s): ?>
           <div class="partner-item">
