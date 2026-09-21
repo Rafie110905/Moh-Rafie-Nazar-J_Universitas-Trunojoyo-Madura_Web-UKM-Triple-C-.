@@ -26,5 +26,5 @@ return [
   ],
 
   'button_text' => 'CEK PEMENANG',
-  'button_link' => '#', // ganti ke link/halaman pengumuman pemenang
+  'button_link' => 'pemenang.php',
 ];
