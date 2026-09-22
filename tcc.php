@@ -116,13 +116,15 @@ include __DIR__ . '/includes/announcement-modal.php';
       biar makin siap ikutan TCC 2026!
     </p>
 
-    <div class="exe-card" style="max-width: 780px; margin: 0 auto;">
-      <div class="exe-titlebar c-pink">
-        <span>TWIBBON.EXE</span>
-        <span class="exe-controls"><span>_</span><span>□</span><span>×</span></span>
-      </div>
-      <div class="exe-body">
-        <div class="twibbon-layout">
+    <div class="twibbon-split">
+
+      <!-- ===== KARTU KIRI: PREVIEW FOTO + KONTROL ===== -->
+      <div class="exe-card twibbon-card">
+        <div class="exe-titlebar c-pink">
+          <span>TWIBBON.EXE</span>
+          <span class="exe-controls"><span>_</span><span>□</span><span>×</span></span>
+        </div>
+        <div class="exe-body">
 
           <div class="twibbon-canvas-wrap">
             <canvas id="twibbon-canvas" width="1080" height="1080"></canvas>
@@ -134,33 +136,33 @@ include __DIR__ . '/includes/announcement-modal.php';
 
           <div class="twibbon-controls">
             <label for="twibbon-upload" class="btn btn-solid twibbon-upload-btn">
-              📷 PILIH FOTO
+               PILIH FOTO
             </label>
             <input type="file" id="twibbon-upload" accept="image/*" hidden>
 
             <div class="twibbon-control-row">
               <div class="twibbon-control-label-row">
-                <span>🔍 Zoom Out</span>
+                <span> Zoom Out</span>
                 <span id="twibbon-zoom-value" class="twibbon-control-value">1.0x</span>
-                <span>Zoom In 🔍</span>
+                <span>Zoom In </span>
               </div>
               <input type="range" id="twibbon-zoom" min="30" max="300" value="100" disabled>
             </div>
 
             <div class="twibbon-control-row">
               <div class="twibbon-control-label-row">
-                <span>↺ Putar Kiri</span>
+                <span> Putar Kiri</span>
                 <span id="twibbon-rotate-value" class="twibbon-control-value">0°</span>
-                <span>Putar Kanan ↻</span>
+                <span>Putar Kanan </span>
               </div>
               <input type="range" id="twibbon-rotate" min="-180" max="180" value="0" disabled>
             </div>
 
-            <p class="twibbon-hint">💡 Geser fotonya langsung di kotak preview buat atur posisi, gunakan slider buat zoom &amp; rotasi.</p>
+            <p class="twibbon-hint"> Geser fotonya langsung di kotak preview buat atur posisi, gunakan slider buat zoom &amp; rotasi.</p>
 
             <div class="twibbon-btn-row">
               <button type="button" id="twibbon-change-photo" class="btn btn-outline" disabled>
-                🔄 GANTI FOTO
+                 GANTI FOTO
               </button>
               <button type="button" id="twibbon-download" class="btn btn-solid" disabled>
                 ⬇ DOWNLOAD
@@ -170,17 +172,17 @@ include __DIR__ . '/includes/announcement-modal.php';
 
         </div>
       </div>
-    </div>
 
-    <!-- Caption & Tag IG -->
-    <div class="exe-card" style="max-width: 100%; margin: 24px auto 0;">
-      <div class="exe-titlebar c-cyan">
-        <span>CAPTION.TXT</span>
-        <span class="exe-controls"><span>_</span><span>□</span><span>×</span></span>
-      </div>
-      <div class="exe-body">
-        <p style="font-size:0.85rem; font-weight:700; margin-bottom:10px;">📋 Caption siap pakai buat post twibbon-mu:</p>
-        <textarea id="twibbon-caption" readonly rows="30" class="twibbon-caption-box">I'M READY FOR TCC 2026! ARE YOU?
+      <!-- ===== KARTU KANAN: CAPTION + TAG INSTAGRAM ===== -->
+      <div class="exe-card twibbon-card">
+        <div class="exe-titlebar c-cyan">
+          <span>CAPTION.TXT</span>
+          <span class="exe-controls"><span>_</span><span>□</span><span>×</span></span>
+        </div>
+        <div class="exe-body twibbon-caption-panel">
+
+          <p class="twibbon-panel-label"> Caption Twibbon</p>
+          <textarea id="twibbon-caption" readonly rows="12" class="twibbon-caption-box">I'M READY FOR TCC 2026! ARE YOU?
 
 TRUNOJOYO CREATIVE COMPETITION (TCC) 2026
 
@@ -223,12 +225,18 @@ Hadi : +62 895-8053-7320
 #UKMTripleC
 #TCC2026
 #Creative2026</textarea>
-        <button type="button" id="twibbon-copy-caption" class="btn btn-outline" style="margin-top:14px;">📋 COPY CAPTION</button>
-        <span id="twibbon-copy-feedback" class="twibbon-copy-feedback"></span>
 
-        <p style="font-size:0.85rem; font-weight:700; margin:20px 0 8px;">🏷️ Tag akun Instagram di bawah ini:</p>
-        <div class="twibbon-tag-box">Instagram: @ukmtriplec dan @tcc.triplec</div>
+          <div class="twibbon-copy-row">
+            <button type="button" id="twibbon-copy-caption" class="btn btn-solid twibbon-copy-btn"> SALIN CAPTION</button>
+            <span id="twibbon-copy-feedback" class="twibbon-copy-feedback"></span>
+          </div>
+
+          <p class="twibbon-panel-label" style="margin-top: 24px;"> Tag akun Instagram di bawah ini</p>
+          <div class="twibbon-tag-box">Instagram: @ukmtriplec dan @tcc.triplec</div>
+
+        </div>
       </div>
+
     </div>
 
   </div>
@@ -238,28 +246,88 @@ Hadi : +62 895-8053-7320
 <section class="bg-purple scanline-bg section">
   <div class="container">
     <p class="pixel-heading"><span class="chrome">EVENTS</span></p>
-    <div class="two-col mt-lg">
-      <div class="exe-card">
-        <div class="exe-titlebar c-olive">
-          <span>PRA_EVENT.EXE</span>
-          <span class="exe-controls"><span>_</span><span>□</span><span>×</span></span>
-        </div>
-        <div class="exe-body">
-          <h3>Pra Event</h3>
-          <p style="color:#888;">Coming Soon — informasi detail mengenai Pra Event akan segera hadir. Tetap nantikan pembaruannya!</p>
-        </div>
+
+    <!-- Pra Event: Webinar Nasional -->
+    <div class="exe-card" style="max-width: 1100px; margin: 40px auto 0;">
+      <div class="exe-titlebar c-olive">
+        <span>PRA_EVENT.EXE</span>
+        <span class="exe-controls"><span>_</span><span>□</span><span>×</span></span>
       </div>
-      <div class="exe-card">
-        <div class="exe-titlebar c-cyan">
-          <span>MAIN_EVENT.EXE</span>
-          <span class="exe-controls"><span>_</span><span>□</span><span>×</span></span>
-        </div>
-        <div class="exe-body">
-          <h3>Main Event</h3>
-          <p style="color:#888;">Coming Soon — informasi detail mengenai Main Event akan segera hadir. Tetap nantikan pembaruannya!</p>
+      <div class="exe-body">
+        <div class="webinar-layout">
+
+          <div class="webinar-text">
+            <span class="eyebrow-pill" style="color:#000; border-color:rgba(0,0,0,0.2);">Webinar Nasional TCC 2026</span>
+            <h2 style="margin-bottom:4px;">From Idea to Victory</h2>
+            <p style="font-style:italic; color:#555; margin-bottom:22px;">
+              "Mastering Competitions, Presentations, and Research Funding"
+            </p>
+
+            <div class="webinar-point">
+              <span class="webinar-point-icon">💡</span>
+              <p><strong>Pengembangan Ide Juara:</strong> Pelajari cara mengolah dan mentransformasi ide inovatif menjadi karya atau proposal yang kompetitif, berbobot, dan siap bersaing di berbagai kompetisi nasional.</p>
+            </div>
+            <div class="webinar-point">
+              <span class="webinar-point-icon">🎤</span>
+              <p><strong>Presentasi Memikat &amp; Percaya Diri:</strong> Kuasai strategi menyampaikan gagasan secara jelas, sistematis, dan meyakinkan di hadapan juri dan dewan penilai.</p>
+            </div>
+            <div class="webinar-point">
+              <span class="webinar-point-icon">💰</span>
+              <p><strong>Strategi Pendanaan Riset &amp; Karya:</strong> Temukan panduan praktis dalam menyusun proposal pendanaan penelitian yang menarik serta kiat meningkatkan peluang lolos seleksi.</p>
+            </div>
+
+            <hr class="twibbon-divider">
+
+            <div class="webinar-info-grid">
+              <div class="webinar-info-item">
+                <span class="webinar-info-label"> Pemateri</span>
+                <p><strong>Muhammad Reyhan Alfanda</strong><br>
+                  Finalis Pekan Ilmiah Mahasiswa Nasional (PIMNAS) ke-37 Universitas Airlangga,
+                  Best Pengembang Talenta Indonesia (BPTI) Kemendikbudristek RI,
+                  Juara 3 Kompetisi Penelitian Mahasiswa Tingkat ASEAN Malaysia 2024.
+                </p>
+              </div>
+              <div class="webinar-info-item">
+                <span class="webinar-info-label"> Jadwal</span>
+                <p><strong>Senin, 21 September 2026</strong><br>19:00 WIB – Selesai<br>via Zoom Meeting</p>
+              </div>
+              <div class="webinar-info-item">
+                <span class="webinar-info-label">Benefit</span>
+                <p>Ilmu yang bermanfaat, E-Certificate, dan relasi baru bersama peserta se-Indonesia.</p>
+              </div>
+              <div class="webinar-info-item">
+                <span class="webinar-info-label"> Biaya</span>
+                <p><strong>GRATIS</strong> (Free HTM)</p>
+              </div>
+            </div>
+
+            <div class="btn-row" style="margin-top:26px;">
+              <a href="https://docs.google.com/forms/d/e/1FAIpQLSclDqtBJRAOEnkD5RSgVpQEaJr2GuJyPXbIjyK13PY6nGkfAA/viewform" target="_blank" rel="noopener" class="btn btn-solid">
+                DAFTAR WEBINAR SEKARANG →
+              </a>
+            </div>
+          </div>
+
+          <div class="webinar-poster">
+            <img src="assets/img/events/webinar-pra-event.jpeg" alt="Poster Webinar From Idea to Victory - TCC 2026">
+          </div>
+
         </div>
       </div>
     </div>
+
+    <!-- Main Event -->
+    <div class="exe-card" style="max-width: 900px; margin: 30px auto 0;">
+      <div class="exe-titlebar c-cyan">
+        <span>MAIN_EVENT.EXE</span>
+        <span class="exe-controls"><span>_</span><span>□</span><span>×</span></span>
+      </div>
+      <div class="exe-body">
+        <h3>Main Event</h3>
+        <p style="color:#888;">Coming Soon — informasi detail mengenai Main Event akan segera hadir. Tetap nantikan pembaruannya!</p>
+      </div>
+    </div>
+
   </div>
 </section>
 
