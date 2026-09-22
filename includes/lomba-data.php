@@ -12,7 +12,13 @@
  * - Untuk Esai & Poster, nominal "Biaya Registrasi" di bawah masih
  *   PLACEHOLDER (contoh). Ganti sesuai info resmi panitia sebelum
  *   publish.
- * - status gelombang: 'open' atau 'closed'
+ * - status gelombang SEKARANG DIHITUNG OTOMATIS dari tanggal
+ *   ('sampai') dibanding tanggal hari ini di server, pakai fungsi
+ *   tcc_status_gelombang() di bawah. Tidak perlu lagi ubah
+ *   'open'/'closed' secara manual — cukup isi/ubah tanggal 'sampai'
+ *   tiap gelombang kalau jadwal berubah. Gelombang otomatis
+ *   berstatus 'closed' begitu tanggal 'sampai' terlewati (dihitung
+ *   sampai jam 23:59:59 di hari itu).
  * - Timeline & Hadiah dipakai bersama (shared) untuk 3 lomba karena
  *   satu rangkaian acara TCC. Kalau salah satu lomba punya jadwal
  *   beda, cukup override di array lomba masing-masing (lihat
@@ -20,6 +26,17 @@
  *   ingin pakai default).
  * ============================================================
  */
+
+// ------------------------------------------------------------
+// STATUS GELOMBANG OTOMATIS BERDASARKAN TANGGAL
+// ------------------------------------------------------------
+// Dipakai di tiap gelombang di bawah: 'status' => tcc_status_gelombang('YYYY-MM-DD')
+// $sampai = tanggal terakhir gelombang itu masih dibuka (format 'YYYY-MM-DD').
+// Dianggap tutup begitu lewat jam 23:59:59 di tanggal tsb (WIB, sesuai timezone server).
+function tcc_status_gelombang($sampai) {
+  $deadline = strtotime($sampai . ' 23:59:59');
+  return time() <= $deadline ? 'open' : 'closed';
+}
 
 // ------------------------------------------------------------
 // TIMELINE & HADIAH DEFAULT (dipakai bersama oleh semua lomba)
@@ -59,9 +76,9 @@ $tcc_lomba = [
     'link_pengumpulan' => '#',
     // PLACEHOLDER — ganti sesuai info resmi panitia
     'gelombang' => [
-      ['nama' => 'Gelombang 1', 'status' => 'closed', 'harga' => 'Rp 25.000'],
-      ['nama' => 'Gelombang 2', 'status' => 'closed', 'harga' => 'Rp 30.000'],
-      ['nama' => 'Gelombang 3', 'status' => 'open',   'harga' => 'Rp 35.000'],
+      ['nama' => 'Gelombang 1', 'sampai' => '2026-08-09', 'status' => tcc_status_gelombang('2026-08-09'), 'harga' => 'Rp 25.000'],
+      ['nama' => 'Gelombang 2', 'sampai' => '2026-08-24', 'status' => tcc_status_gelombang('2026-08-24'), 'harga' => 'Rp 30.000'],
+      ['nama' => 'Gelombang 3', 'sampai' => '2026-09-20', 'status' => tcc_status_gelombang('2026-09-20'), 'harga' => 'Rp 35.000'],
     ],
   ],
 
@@ -77,9 +94,9 @@ $tcc_lomba = [
     'link_guidebook'   => 'assets/docs/guidebook-vibe-code.pdf',
     'link_pengumpulan' => '#',
     'gelombang' => [
-      ['nama' => 'Gelombang 1', 'status' => 'closed', 'harga' => 'Rp 35.000'],
-      ['nama' => 'Gelombang 2', 'status' => 'closed', 'harga' => 'Rp 45.000'],
-      ['nama' => 'Gelombang 3', 'status' => 'open',   'harga' => 'Rp 50.000'],
+      ['nama' => 'Gelombang 1', 'sampai' => '2026-08-09', 'status' => tcc_status_gelombang('2026-08-09'), 'harga' => 'Rp 35.000'],
+      ['nama' => 'Gelombang 2', 'sampai' => '2026-08-24', 'status' => tcc_status_gelombang('2026-08-24'), 'harga' => 'Rp 45.000'],
+      ['nama' => 'Gelombang 3', 'sampai' => '2026-09-20', 'status' => tcc_status_gelombang('2026-09-20'), 'harga' => 'Rp 50.000'],
     ],
   ],
 
@@ -96,9 +113,9 @@ $tcc_lomba = [
     'link_pengumpulan' => '#',
     // PLACEHOLDER — ganti sesuai info resmi panitia
     'gelombang' => [
-      ['nama' => 'Gelombang 1', 'status' => 'closed', 'harga' => 'Rp 20.000'],
-      ['nama' => 'Gelombang 2', 'status' => 'closed', 'harga' => 'Rp 25.000'],
-      ['nama' => 'Gelombang 3', 'status' => 'open',   'harga' => 'Rp 30.000'],
+      ['nama' => 'Gelombang 1', 'sampai' => '2026-08-09', 'status' => tcc_status_gelombang('2026-08-09'), 'harga' => 'Rp 20.000'],
+      ['nama' => 'Gelombang 2', 'sampai' => '2026-08-24', 'status' => tcc_status_gelombang('2026-08-24'), 'harga' => 'Rp 25.000'],
+      ['nama' => 'Gelombang 3', 'sampai' => '2026-09-20', 'status' => tcc_status_gelombang('2026-09-20'), 'harga' => 'Rp 30.000'],
     ],
   ],
 
